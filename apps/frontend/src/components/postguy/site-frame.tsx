@@ -25,7 +25,7 @@ export function SiteNav({ active }: { active?: string }) {
         <Link href="/privacy" aria-current={active === 'privacy' ? 'page' : undefined}>Privacy</Link>
         <Link href="/terms" aria-current={active === 'terms' ? 'page' : undefined}>Terms</Link>
       </div>
-      <Link href="https://github.com/gitroomhq/postiz-app" className="postguy-nav-cta" target="_blank" rel="noreferrer">
+      <Link href="/source" className="postguy-nav-cta" target="_blank" rel="noreferrer">
         Source <span aria-hidden="true">↗</span>
       </Link>
     </nav>
