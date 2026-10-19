@@ -27,4 +27,4 @@ No paid hosting or API service is included. External providers may have their ow
 
 ## License and source provenance
 
-The application remains under the [GNU Affero General Public License v3 or later](LICENSE). This is a modified version of [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app), pinned above. If Postguy is made available over a network, users of that version must be given access to its corresponding modified source as required by the AGPL. The eventual public source URL must point to this modified Postguy checkout, not only to the upstream repository.
+The application remains under the [GNU Affero General Public License v3 or later](LICENSE). This is a modified version of [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app), pinned above. If Postguy is made available over a network, users of that version must be given access to its corresponding modified source as required by the AGPL. The modified source is published at https://github.com/ReeceHarding/postguy-app; the application’s Source & License page links here and to the upstream provenance.

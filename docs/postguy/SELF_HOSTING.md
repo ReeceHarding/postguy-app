@@ -45,7 +45,7 @@ Before exposing an instance:
 - Restrict registration if the instance is private. Configure email before relying on password resets, invitations or notifications.
 - Configure each social developer app and individual channel authorization separately. Leave unapproved provider flows unavailable; do not add production credentials before platform review.
 - Review optional email, AI, analytics, object storage, short-link, media-processing, telemetry and payment providers individually. Usage may be charged by those providers. The no-cost baseline has none configured.
-- Add a public source URL for this modified AGPL application before serving a network-hosted instance.
+- The modified source is published at https://github.com/ReeceHarding/postguy-app; link to this repository from any network-hosted instance as required by AGPL-3.0-or-later.
 
 See the official [Postiz self-host guide](https://docs.postiz.com/self-host/overview) and [configuration reference](https://docs.postiz.com/self-host/configuration/reference) for upstream service configuration. Re-check those docs against the pinned source before an upgrade.
 
