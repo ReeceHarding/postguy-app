@@ -25,6 +25,18 @@ import { HtmlComponent } from '@gitroom/frontend/components/layout/html.componen
 import Script from 'next/script';
 import { ChangeDirClient } from '@gitroom/frontend/components/new-layout/change.dir.client';
 
+export const metadata = {
+  title: {
+    default: 'Postguy',
+    template: '%s · Postguy',
+  },
+  description: 'Plan, review and schedule social publishing from your own Postguy instance.',
+  applicationName: 'Postguy',
+  icons: {
+    icon: '/postguy-mark.svg',
+  },
+};
+
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const cookieStore = await cookies();
   const language = cookieStore.get(cookieName)?.value || fallbackLng;
@@ -34,11 +46,11 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   return (
     <html>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/postguy-mark.svg" type="image/svg+xml" />
         {!!process.env.DATAFAST_WEBSITE_ID && (
           <Script
             data-website-id={process.env.DATAFAST_WEBSITE_ID}
-            data-domain="postiz.com"
+            data-domain={process.env.MAIN_URL ? new URL(process.env.MAIN_URL).hostname : "localhost"}
             src="https://datafa.st/js/script.js"
             strategy="afterInteractive"
           />
@@ -102,7 +114,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
             <FacebookComponent />
             <GoogleTagManagerComponent gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
             <Plausible
-              domain={!!process.env.IS_GENERAL ? 'postiz.com' : 'gitroom.com'}
+              domain={process.env.MAIN_URL ? new URL(process.env.MAIN_URL).hostname : 'localhost'}
             >
               <PHProvider
                 phkey={process.env.NEXT_PUBLIC_POSTHOG_KEY}

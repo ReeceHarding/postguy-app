@@ -68,7 +68,7 @@ export class ThreadsProvider extends SocialAbstract implements SocialProvider {
       return {
         type: 'bad-body',
         value:
-          "One of the media URLs is invalid or inaccessible, make sure it's being uploaded to Postiz first",
+          "One of the media URLs is invalid or inaccessible, make sure it's being uploaded to Postguy first",
       };
     }
     if (body.includes('4279009')) {
@@ -118,9 +118,7 @@ export class ThreadsProvider extends SocialAbstract implements SocialProvider {
         `?client_id=${process.env.THREADS_APP_ID}` +
         `&redirect_uri=${encodeURIComponent(
           `${
-            process?.env.FRONTEND_URL?.indexOf('https') == -1
-              ? `https://redirectmeto.com/${process?.env.FRONTEND_URL}`
-              : `${process?.env.FRONTEND_URL}`
+            process?.env.FRONTEND_URL
           }/integrations/social/threads`
         )}` +
         `&state=${state}` +
@@ -141,9 +139,7 @@ export class ThreadsProvider extends SocialAbstract implements SocialProvider {
           `?client_id=${process.env.THREADS_APP_ID}` +
           `&redirect_uri=${encodeURIComponent(
             `${
-              process?.env.FRONTEND_URL?.indexOf('https') == -1
-                ? `https://redirectmeto.com/${process?.env.FRONTEND_URL}`
-                : `${process?.env.FRONTEND_URL}`
+              process?.env.FRONTEND_URL
             }/integrations/social/threads`
           )}` +
           `&grant_type=authorization_code` +

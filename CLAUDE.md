@@ -1,4 +1,4 @@
-This project is Postiz, a tool to schedule social media and chat posts to 28+ channels.
+This project is Postguy, an AGPL-3.0-or-later rebrand and modification of the Postiz social publishing application. Keep this repository's product copy and UI branded as Postguy; identify Postiz only for upstream provenance or external Postiz-owned packages and services.
 You can add posts to the calendar, they will be added into a workflow and posted at the right time.
 You can find things like:
 - Schedule posts
@@ -78,3 +78,17 @@ const useCommunity = () => {
 - Never silently change the meaning or format of a value persisted in an existing DB column; that affects every reader and all historical rows, so ask first. 
 - Never return a raw Prisma row from a model that holds credentials (`Integration`, `User` and similar) in a controller response. Repository writes on those models must use a `select` with only the fields the caller needs (like `setTimes` with `select: { id: true }`), or the controller returns nothing. This applies even where nearby code looks different.
 - Be extra careful with code invoked by webhooks of external systems (Stripe, RevenueCat and other payment providers), including everything they call down the stack (e.g. `SubscriptionService.createOrUpdateSubscription`, `modifySubscription`, `deleteSubscription`). That code must not throw exceptions: never add a `throw`, and wrap any call that can fail (DB, provider API) so a failure is caught and logged instead of propagating. A webhook that throws leaves billing state half-applied for a paying customer.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Use the single-context layout. See `docs/agents/domain.md`.

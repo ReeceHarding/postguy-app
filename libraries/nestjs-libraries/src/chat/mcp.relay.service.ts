@@ -21,8 +21,8 @@ export interface SelfHostedInstance {
   apiKey: string;
 }
 
-// Every Postiz MCP server since v2.19.0 (the first one with the API key /mcp
-// route) has these; a server without them is not a Postiz instance
+// Every Postguy MCP server since v2.19.0 (the first one with the API key /mcp
+// route) has these; a server without them is not a Postguy instance
 const requiredTools = ['integrationList', 'integrationSchedulePostTool'];
 
 // Tool results are small JSON, an instance never needs this server to hold
@@ -70,7 +70,7 @@ const instanceFetch = async (url: string | URL, init?: RequestInit) => {
   });
 };
 
-// Postiz Cloud relays the MCP connection of a self-hosted Postiz: the person
+// Postguy Cloud relays the MCP connection of a self-hosted Postguy: the person
 // brings the instance and its API key on the consent screen ("Use
 // self-hosted"), and the tool calls of that connection run on the instance
 @Injectable()
@@ -94,7 +94,7 @@ export class McpRelayService {
       );
     } catch {
       throw new HttpException(
-        'Enter the address of your Postiz instance, for example https://postiz.example.com',
+        'Enter the address of your Postguy instance, for example https://postiz.example.com',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -103,7 +103,7 @@ export class McpRelayService {
     // user "me" on company.com) is never sent anywhere
     if (url.username || url.password) {
       throw new HttpException(
-        'Enter the address of your Postiz instance, for example https://postiz.example.com',
+        'Enter the address of your Postguy instance, for example https://postiz.example.com',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -115,14 +115,14 @@ export class McpRelayService {
       apiKey?.trim() || (fromSettings && decodeURIComponent(fromSettings[2]));
     if (!key) {
       throw new HttpException(
-        'Enter the API key of your Postiz instance',
+        'Enter the API key of your Postguy instance',
         HttpStatus.BAD_REQUEST
       );
     }
 
     if (!(await isSafePublicHttpsUrl(url.origin))) {
       throw new HttpException(
-        'Your Postiz instance must be reachable from the internet over https',
+        'Your Postguy instance must be reachable from the internet over https',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -147,13 +147,13 @@ export class McpRelayService {
       } catch (err) {
         if (err instanceof StreamableHTTPError && err.code === 401) {
           throw new HttpException(
-            'Your Postiz instance rejected this API key',
+            'Your Postguy instance rejected this API key',
             HttpStatus.BAD_REQUEST
           );
         }
         if (err instanceof StreamableHTTPError && err.code === 403) {
           throw new HttpException(
-            'Your Postiz instance refused the connection (403), make sure nothing in front of it blocks requests from Postiz Cloud',
+            'Your Postguy instance refused the connection (403), make sure nothing in front of it blocks requests from Postguy Cloud',
             HttpStatus.BAD_REQUEST
           );
         }
@@ -163,7 +163,7 @@ export class McpRelayService {
 
       if (!requiredTools.every((name) => tools.includes(name))) {
         throw new HttpException(
-          `${url.origin} does not look like a Postiz instance, or it runs a version older than v2.19.0`,
+          `${url.origin} does not look like a Postguy instance, or it runs a version older than v2.19.0`,
           HttpStatus.BAD_REQUEST
         );
       }
@@ -177,7 +177,7 @@ export class McpRelayService {
         .filter((name) => !tools.includes(name));
       if (missing.length) {
         throw new HttpException(
-          `Your Postiz instance is missing tools this connection needs (${missing.join(', ')}). Update it to the latest Postiz version and connect again`,
+          `Your Postguy instance is missing tools this connection needs (${missing.join(', ')}). Update it to the latest Postguy version and connect again`,
           HttpStatus.BAD_REQUEST
         );
       }
@@ -186,7 +186,7 @@ export class McpRelayService {
     }
 
     throw new HttpException(
-      `Could not find a Postiz MCP server at ${url.origin}. Paste the MCP URL from Settings > Agents / Dev (Agents, Developers or Public API on older versions) of your instance, and make sure it runs Postiz v2.19.0 or newer`,
+      `Could not find a Postguy MCP server at ${url.origin}. Paste the MCP URL from Settings > Agents / Dev (Agents, Developers or Public API on older versions) of your instance, and make sure it runs Postguy v2.19.0 or newer`,
       HttpStatus.BAD_REQUEST
     );
   }
@@ -240,17 +240,17 @@ export class McpRelayService {
                 return this.failure(
                   tool,
                   text ||
-                    `${name} returned an unexpected answer from your Postiz instance`
+                    `${name} returned an unexpected answer from your Postguy instance`
                 );
               }
             }
 
-            // an instance on another Postiz version can answer in another shape
+            // an instance on another Postguy version can answer in another shape
             const check = await tool.outputSchema['~standard']?.validate(output);
             if (check?.issues) {
               return this.failure(
                 tool,
-                `Your Postiz instance answered ${name} in a format this connection does not know, update the instance to the latest Postiz version`
+                `Your Postguy instance answered ${name} in a format this connection does not know, update the instance to the latest Postguy version`
               );
             }
 
@@ -290,16 +290,16 @@ export class McpRelayService {
       // an instance older than this server doesn't have every tool yet
       if (text.startsWith('Unknown tool:')) {
         throw new Error(
-          `${name} is not available on your Postiz instance: the feature it needs is not set up there, or the instance needs an update to the latest Postiz version`
+          `${name} is not available on your Postguy instance: the feature it needs is not set up there, or the instance needs an update to the latest Postguy version`
         );
       }
       // arguments this server validated but an older instance doesn't accept
       if (text.startsWith('Tool validation failed')) {
         throw new Error(
-          `Your Postiz instance runs an older version of ${name}, update it to the latest Postiz version to use it`
+          `Your Postguy instance runs an older version of ${name}, update it to the latest Postguy version to use it`
         );
       }
-      throw new Error(text || `${name} failed on your Postiz instance`);
+      throw new Error(text || `${name} failed on your Postguy instance`);
     }
 
     return result;
@@ -318,7 +318,7 @@ export class McpRelayService {
         fetch: instanceFetch,
       }
     );
-    const client = new Client({ name: 'Postiz Cloud', version: '1.0.0' });
+    const client = new Client({ name: 'Postguy Cloud', version: '1.0.0' });
 
     try {
       await client.connect(transport, { timeout: 10000 });
@@ -366,18 +366,18 @@ export class McpRelayService {
   ) {
     const origin = new URL(instance.mcpUrl).origin;
     if (err instanceof StreamableHTTPError && err.code === 401) {
-      return `Your Postiz instance (${origin}) rejected the saved API key, it was probably rotated, so this connection was removed. Connect Postiz again to keep using your instance`;
+      return `Your Postguy instance (${origin}) rejected the saved API key, it was probably rotated, so this connection was removed. Connect Postguy again to keep using your instance`;
     }
     if (err instanceof StreamableHTTPError && err.code === 403) {
-      return `Your Postiz instance (${origin}) refused the request (403), make sure nothing in front of it blocks requests from Postiz Cloud`;
+      return `Your Postguy instance (${origin}) refused the request (403), make sure nothing in front of it blocks requests from Postguy Cloud`;
     }
     if (err instanceof McpError && err.code === ErrorCode.RequestTimeout) {
-      return `Your Postiz instance (${origin}) did not answer ${name} in time`;
+      return `Your Postguy instance (${origin}) did not answer ${name} in time`;
     }
     if (err instanceof McpError) {
-      return `Your Postiz instance (${origin}) could not run ${name}: ${err.message}`;
+      return `Your Postguy instance (${origin}) could not run ${name}: ${err.message}`;
     }
-    return `Could not reach your Postiz instance (${origin}): ${
+    return `Could not reach your Postguy instance (${origin}): ${
       err instanceof Error ? err.message : String(err)
     }. Make sure it is online and reachable from the internet`;
   }

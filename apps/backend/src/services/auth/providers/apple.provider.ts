@@ -27,11 +27,7 @@ const getConfig = () => {
 };
 
 const defaultRedirect = () =>
-  `${
-    process?.env?.NEXT_PUBLIC_BACKEND_URL?.indexOf('https') === -1
-      ? 'https://redirectmeto.com/'
-      : ''
-  }${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/oauth/apple/redirect`;
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/oauth/apple/redirect`;
 
 const clientSecret = () => {
   const { clientId, teamId, keyId, privateKey } = getConfig();

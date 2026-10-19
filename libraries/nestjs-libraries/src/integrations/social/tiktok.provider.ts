@@ -239,7 +239,7 @@ export class TiktokProvider extends SocialAbstract implements SocialProvider {
       return {
         type: 'bad-body' as const,
         value:
-          'You have to upload the picture/video to Postiz when sending a URL',
+          'You have to upload the picture/video to Postguy when sending a URL',
       };
     }
 
@@ -346,11 +346,7 @@ export class TiktokProvider extends SocialAbstract implements SocialProvider {
         'https://www.tiktok.com/v2/auth/authorize/' +
         `?client_key=${process.env.TIKTOK_CLIENT_ID}` +
         `&redirect_uri=${encodeURIComponent(
-          `${
-            process?.env?.FRONTEND_URL?.indexOf('https') === -1
-              ? 'https://redirectmeto.com/'
-              : ''
-          }${process?.env?.FRONTEND_URL}/integrations/social/tiktok`
+          `${process?.env?.FRONTEND_URL}/integrations/social/tiktok`
         )}` +
         `&state=${state}` +
         `&response_type=code` +
@@ -371,11 +367,7 @@ export class TiktokProvider extends SocialAbstract implements SocialProvider {
       code: params.code,
       grant_type: 'authorization_code',
       code_verifier: params.codeVerifier,
-      redirect_uri: `${
-        process?.env?.FRONTEND_URL?.indexOf('https') === -1
-          ? 'https://redirectmeto.com/'
-          : ''
-      }${process?.env?.FRONTEND_URL}/integrations/social/tiktok`,
+      redirect_uri: `${process?.env?.FRONTEND_URL}/integrations/social/tiktok`,
     };
 
     const { access_token, refresh_token, scope } = await (

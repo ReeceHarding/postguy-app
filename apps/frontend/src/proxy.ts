@@ -55,6 +55,16 @@ export async function proxy(request: NextRequest) {
     return topResponse;
   }
 
+  // Public product and legal pages must remain reachable before sign-in.
+  if (
+    nextUrl.pathname === '/' ||
+    nextUrl.pathname === '/privacy' ||
+    nextUrl.pathname === '/terms' ||
+    nextUrl.pathname === '/source'
+  ) {
+    return topResponse;
+  }
+
   if (
     nextUrl.pathname.startsWith('/integrations/social/') &&
     nextUrl.href.indexOf('state=login') === -1
@@ -160,15 +170,6 @@ export async function proxy(request: NextRequest) {
       }
       return redirect;
     }
-    if (nextUrl.pathname === '/') {
-      return NextResponse.redirect(
-        new URL(
-          !!process.env.IS_GENERAL ? '/launches' : `/analytics`,
-          nextUrl.href
-        )
-      );
-    }
-
     return topResponse;
   } catch (err) {
     console.log('err', err);

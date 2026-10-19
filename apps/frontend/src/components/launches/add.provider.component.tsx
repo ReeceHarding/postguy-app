@@ -282,22 +282,16 @@ const ExtensionNotFound: FC = () => {
       <p className="text-[14px] text-textColor/80">
         {t(
           'extension_not_available',
-          'The Postiz browser extension is not installed. You need to install it before connecting this channel.'
+          'This channel requires a browser extension. The upstream Postiz extension has separate branding and has not been verified with Postguy, so this connection is unavailable until a Postguy extension is built.'
         )}
       </p>
       <div className="flex gap-[10px]">
         <Button
           type="button"
           className="flex-1"
-          onClick={() => {
-            window.open(
-              'https://chromewebstore.google.com/detail/postiz/cidhffagahknaeodkplfbcpfeielnkjl?hl=en',
-              '_blank'
-            );
-            modals.closeCurrent();
-          }}
+          disabled
         >
-          {t('install_extension', 'Install Extension')}
+          {t('extension_pending', 'Postguy extension not available')}
         </Button>
         <Button
           type="button"
@@ -348,7 +342,7 @@ const ChromeExtensionWarning: FC<{
           We will store your cookies securely to facilitate the connection.
         </li>
         <li>
-          Postiz does not take responsibility for any issues arising or account
+          Postguy does not take responsibility for any issues arising or account
           termination due to the use of this method.
         </li>
       </ul>
@@ -584,7 +578,7 @@ export const AddProviderComponent: FC<{
             toaster.show(
               t(
                 'extension_not_installed',
-                'Postiz browser extension is not installed or not reachable.'
+                'Postguy browser extension is not installed or not reachable.'
               ),
               'warning'
             );

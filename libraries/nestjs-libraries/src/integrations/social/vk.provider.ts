@@ -98,9 +98,7 @@ export class VkProvider extends SocialAbstract implements SocialProvider {
         `&code_challenge=${challenge}` +
         `&redirect_uri=${encodeURIComponent(
           `${
-            process?.env.FRONTEND_URL?.indexOf('https') == -1
-              ? `https://redirectmeto.com/${process?.env.FRONTEND_URL}`
-              : `${process?.env.FRONTEND_URL}`
+            process?.env.FRONTEND_URL
           }/integrations/social/vk`
         )}` +
         `&state=${state}` +
@@ -126,9 +124,7 @@ export class VkProvider extends SocialAbstract implements SocialProvider {
     formData.append(
       'redirect_uri',
       `${
-        process?.env.FRONTEND_URL?.indexOf('https') == -1
-          ? `https://redirectmeto.com/${process?.env.FRONTEND_URL}`
-          : `${process?.env.FRONTEND_URL}`
+        process?.env.FRONTEND_URL
       }/integrations/social/vk`
     );
 

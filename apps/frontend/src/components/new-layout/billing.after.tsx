@@ -22,13 +22,13 @@ export const BillingAfter = () => {
       <div className="text-center mb-[20px] text-xl [@media(max-width:1024px)]:text-xl">
         <h1 className="text-3xl [@media(max-width:1024px)]:text-xl">
           {t(
-            'join_10000_entrepreneurs_who_use_postiz',
-            'Join 10,000+ Entrepreneurs Who Use Postiz'
+            'postguy_billing_heading',
+            'Manage billing for this Postguy instance'
           )}
           <br />
           {t(
-            'to_manage_all_your_social_media_channels',
-            'To Manage All Your Social Media Channels'
+            'postguy_billing_description',
+            'Subscription options appear only when configured by the instance operator.'
           )}
         </h1>
         <br />
