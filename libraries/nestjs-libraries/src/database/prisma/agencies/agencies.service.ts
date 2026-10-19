@@ -201,11 +201,6 @@ export class AgenciesService {
                 }" style="margin: 0 10px; text-decoration: none; color: #007bff;">To decline click here</a><br /><br /><br />
             </td>
         </tr>
-        <tr>
-            <td style="padding: 20px; text-align: center; background-color: #f4f4f4;">
-                <p style="color: #777; font-size: 14px;">&copy; 2024 Your Postguy Limited All rights reserved.</p>
-            </td>
-        </tr>
     </table>
 </body>
 
